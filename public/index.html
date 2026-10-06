@@ -1,1 +1,111 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wedding Invitation</title><link rel="stylesheet" href="styles.css"></head><body><div id="opening" class="opening"><div class="envelope" id="envelope"><div class="flap"></div><div class="paper"><p>Together with their families</p><h1 id="openNames">Your Names</h1><p id="openDate">Your Wedding Date</p></div><button id="openButton" class="seal">OPEN</button></div><p class="tap">Tap the seal to open</p></div><main id="site" class="site hidden"><section class="hero"><p>Together with their families</p><h1><span id="bride"></span><br>&amp;<br><span id="groom"></span></h1><p id="date"></p><p id="venue"></p></section><section><p>THE CELEBRATIONS</p><div id="events" class="cards"></div></section><section><p>SAVE THE DATE</p><div id="countdown" class="countdown"></div></section><section><p>JOIN US</p><h2 id="locationName"></h2><p id="address"></p><a id="mapLink" class="button" target="_blank">View location</a></section><section class="rsvp"><p>RSVP</p><form id="rsvpForm"><input name="name" placeholder="Your name" required><input name="email" type="email" placeholder="Email"><select name="attendance" required><option value="">Attendance</option><option>Joyfully accepts</option><option>Regretfully declines</option></select><input name="guests" type="number" min="1" max="10" value="1"><select name="meal"><option value="">Meal preference</option><option>Vegetarian</option><option>Non-vegetarian</option><option>No preference</option></select><textarea name="message" placeholder="A message"></textarea><button class="button">Send RSVP</button><p id="rsvpStatus"></p></form></section><footer>With love ♡</footer></main><script src="config.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#53634f" />
+		<title>Wedding Invitation</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div id="opening" class="opening">
+			<div class="opening-frame" aria-hidden="true"></div>
+			<div class="opening-content">
+				<p class="opening-kicker">A celebration of love</p>
+				<div class="envelope" id="envelope">
+					<div class="envelope-back"></div>
+					<div class="flap"></div>
+					<div class="paper">
+						<p class="paper-kicker">Together with their families</p>
+						<div class="paper-ornament" aria-hidden="true">S <span>&amp;</span> G</div>
+						<h1 id="openNames">Your Names</h1>
+						<div class="paper-rule" aria-hidden="true"></div>
+						<p id="openDate">Your Wedding Date</p>
+					</div>
+					<button id="openButton" class="seal" aria-label="Open invitation">
+						<span>OPEN</span>
+					</button>
+				</div>
+				<p class="tap">Tap the seal to open</p>
+			</div>
+		</div>
+
+		<main id="site" class="site hidden">
+			<section class="hero">
+				<p class="eyebrow">Together with their families</p>
+				<h1>
+					<span id="bride"></span>
+					<i>&amp;</i>
+					<span id="groom"></span>
+				</h1>
+				<div class="gold-rule" aria-hidden="true"></div>
+				<p id="date"></p>
+				<p id="venue"></p>
+			</section>
+
+			<section class="intro">
+				<p class="eyebrow">With joyful hearts</p>
+				<h2>We invite you to<br /><em>celebrate our love</em></h2>
+			</section>
+
+			<section class="celebrations">
+				<p class="eyebrow">The celebrations</p>
+				<h2>Gather with us</h2>
+				<div id="events" class="cards"></div>
+			</section>
+
+			<section class="save-date">
+				<p class="eyebrow">Save the date</p>
+				<h2>Counting the moments</h2>
+				<div id="countdown" class="countdown"></div>
+			</section>
+
+			<section class="location">
+				<div class="arch-frame">
+					<div class="arch-inner">
+						<p class="eyebrow">Join us</p>
+						<h2 id="locationName"></h2>
+						<div class="gold-rule" aria-hidden="true"></div>
+						<p id="address"></p>
+						<a id="mapLink" class="button" target="_blank" rel="noreferrer">
+							View location
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="rsvp">
+				<p class="eyebrow">Kindly reply</p>
+				<h2>Will you join us?</h2>
+				<form id="rsvpForm">
+					<input name="name" placeholder="Your name" required />
+					<input name="email" type="email" placeholder="Email address" />
+					<select name="attendance" required>
+						<option value="">Attendance</option>
+						<option>Joyfully accepts</option>
+						<option>Regretfully declines</option>
+					</select>
+					<input name="guests" type="number" min="1" max="10" value="1" />
+					<select name="meal">
+						<option value="">Meal preference</option>
+						<option>Vegetarian</option>
+						<option>Non-vegetarian</option>
+						<option>No preference</option>
+					</select>
+					<textarea name="message" placeholder="Leave us a message"></textarea>
+					<button class="button">Send RSVP</button>
+					<p id="rsvpStatus"></p>
+				</form>
+			</section>
+
+			<footer>
+				<span>S</span>
+				<p>With love, always</p>
+				<span>G</span>
+			</footer>
+		</main>
+
+		<script src="config.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
