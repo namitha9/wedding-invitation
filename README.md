@@ -13,6 +13,7 @@ The website files live in `public/`. The backend API lives in `src/index.js`. RS
 ### 1. Create the GitHub repository
 
 Create a new GitHub repository and upload all files in this folder.
+Done
 
 ### 2. Create the D1 database
 
