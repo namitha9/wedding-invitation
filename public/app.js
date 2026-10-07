@@ -19,6 +19,7 @@ textFields.forEach((field) => {
 });
 
 $("#openNames").textContent = `${wedding.bride} & ${wedding.groom}`;
+$("#openingNames").textContent = `${wedding.bride} & ${wedding.groom}`;
 $("#openDate").textContent = wedding.dateText;
 $("#mapLink").href = wedding.mapUrl;
 
@@ -41,7 +42,7 @@ $("#openButton").onclick = () => {
 	setTimeout(() => {
 		$("#opening").classList.add("fade", "hidden");
 		$("#site").classList.remove("hidden");
-	}, 850);
+	}, 1450);
 };
 
 function updateCountdown() {
