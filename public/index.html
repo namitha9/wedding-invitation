@@ -80,9 +80,9 @@
         <button id="openButton" class="ob-seal" aria-label="Open invitation">
           <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" pointer-events="none">
             <circle cx="32" cy="32" r="29" fill="none" stroke="rgba(238,210,145,0.45)" stroke-width="1.2"/>
-            <text x="32" y="29" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" fill="rgba(255,238,190,0.9)" letter-spacing="2">A &amp; A</text>
+            <text id="sealInitials" x="32" y="29" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" fill="rgba(255,238,190,0.9)" letter-spacing="2"></text>
             <line x1="18" y1="35" x2="46" y2="35" stroke="rgba(238,210,145,0.5)" stroke-width="0.8"/>
-            <text x="32" y="44" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="5.5" fill="rgba(255,238,190,0.7)" letter-spacing="1.5">2027</text>
+            <text id="sealYear" x="32" y="44" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="5.5" fill="rgba(255,238,190,0.7)" letter-spacing="1.5"></text>
           </svg>
         </button>
         <p class="ob-tap-hint">Click to Open</p>
@@ -139,6 +139,17 @@
 
       <!-- HERO -->
       <section class="hero" id="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-particles" aria-hidden="true">
+          <span class="hero-p" style="--x:8%;--y:15%;--s:260px;--dur:22s;--del:0s;--op:0.18"></span>
+          <span class="hero-p" style="--x:75%;--y:8%;--s:200px;--dur:18s;--del:4s;--op:0.14"></span>
+          <span class="hero-p" style="--x:85%;--y:60%;--s:240px;--dur:26s;--del:8s;--op:0.12"></span>
+          <span class="hero-p" style="--x:3%;--y:70%;--s:180px;--dur:20s;--del:11s;--op:0.16"></span>
+          <span class="hero-p" style="--x:42%;--y:82%;--s:150px;--dur:15s;--del:6s;--op:0.13"></span>
+          <span class="hero-p" style="--x:55%;--y:5%;--s:160px;--dur:24s;--del:2s;--op:0.11"></span>
+          <span class="hero-p" style="--x:18%;--y:50%;--s:120px;--dur:17s;--del:9s;--op:0.09"></span>
+          <span class="hero-p" style="--x:65%;--y:40%;--s:140px;--dur:21s;--del:14s;--op:0.1"></span>
+        </div>
         <div class="hero-arch" aria-hidden="true"></div>
         <div class="hero-content">
           <p class="hero-eyebrow">Together with their families</p>
@@ -174,8 +185,25 @@
         </div>
       </section>
 
+      <!-- QUOTE -->
+      <section class="quote-section">
+        <!-- Simple dove silhouette -->
+        <svg class="quote-dove" viewBox="0 0 80 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M40,38 C32,35 20,28 12,18 C8,12 10,6 16,5 C20,4 24,7 27,11 C29,7 34,4 40,5 C46,4 51,7 53,11 C56,7 60,4 64,5 C70,6 72,12 68,18 C60,28 48,35 40,38 Z" fill="none" stroke="rgba(197,163,90,0.75)" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M40,38 C44,40 52,42 60,40 C54,43 47,45 40,44 C33,45 26,43 20,40 C28,42 36,40 40,38 Z" fill="rgba(197,163,90,0.4)" stroke="none"/>
+          <path d="M27,11 C25,16 25,22 27,28" fill="none" stroke="rgba(197,163,90,0.4)" stroke-width="0.9" stroke-linecap="round"/>
+          <circle cx="18" cy="7" r="1.5" fill="rgba(197,163,90,0.6)"/>
+        </svg>
+        <blockquote class="quote-text">
+          &ldquo;I have found the one<br>whom my soul loves&rdquo;
+        </blockquote>
+        <p class="quote-ref">SONG OF SOLOMON 3 : 4</p>
+      </section>
+
       <!-- COUNTDOWN -->
       <section class="countdown-section">
+        <p class="eyebrow">Counting Down</p>
+        <h2 class="countdown-heading">Until We Say I Do</h2>
         <div id="countdown" class="countdown"></div>
       </section>
 
@@ -189,40 +217,24 @@
       <!-- ORDER OF THE DAY -->
       <section class="timeline-section">
         <p class="eyebrow">Order of the Day</p>
-        <h2 class="section-heading">The Day
-          <svg class="compass-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1"/>
-            <circle cx="16" cy="16" r="9" stroke="currentColor" stroke-width="0.6"/>
-            <path d="M16 8 L18 14 L16 12 L14 14 Z" fill="currentColor"/>
-            <path d="M16 24 L14 18 L16 20 L18 18 Z" fill="currentColor" opacity="0.4"/>
-          </svg>
-        </h2>
+        <h2 class="section-heading">The Day</h2>
         <div id="scheduleContainer" class="schedule"></div>
-      </section>
-
-      <!-- DRESS CODE -->
-      <section class="dresscode-section">
-        <p class="eyebrow">Dress Code</p>
-        <h2 class="section-heading">Your Wedding Mood
-          <svg class="compass-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1"/>
-            <circle cx="16" cy="16" r="9" stroke="currentColor" stroke-width="0.6"/>
-            <path d="M16 8 L18 14 L16 12 L14 14 Z" fill="currentColor"/>
-            <path d="M16 24 L14 18 L16 20 L18 18 Z" fill="currentColor" opacity="0.4"/>
-          </svg>
-        </h2>
-        <div class="dresscode-card">
-          <p id="dressCode" class="dresscode-label"></p>
-        </div>
       </section>
 
       <!-- PERSONAL MESSAGE -->
       <section class="letter-section">
-        <div class="letter">
-          <p class="letter-salutation">Dear Family and Friends,</p>
-          <p class="letter-body" id="personalMessage"></p>
-          <p class="letter-sign">With all our love,</p>
-          <p class="letter-names">— <span id="letterNames"></span></p>
+        <div class="letter-wrap">
+          <div class="letter-medallion" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 28s-9-5.5-9-11.5a5 5 0 0 1 9-3 5 5 0 0 1 9 3C29 22.5 20 28 20 28z" fill="rgba(255,255,255,0.85)"/>
+            </svg>
+          </div>
+          <div class="letter">
+            <p class="letter-salutation">Dear Family and Friends,</p>
+            <p class="letter-body" id="personalMessage"></p>
+            <p class="letter-sign">With all our love,</p>
+            <p class="letter-names">— <span id="letterNames"></span></p>
+          </div>
         </div>
       </section>
 
@@ -264,14 +276,6 @@
           <div class="field-group" id="eventsGroup">
             <label class="field-label">Events you'll attend</label>
             <div class="event-checks" id="eventChecks"></div>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Hotel accommodation required?</label>
-            <div class="yes-no-group">
-              <button type="button" class="yes-no-btn" data-value="yes" id="hotelYes">Yes</button>
-              <button type="button" class="yes-no-btn" data-value="no" id="hotelNo">No</button>
-            </div>
-            <input type="hidden" name="hotel" id="hotelValue" value="" />
           </div>
           <div class="field-group">
             <label class="field-label">Message / Blessings for the couple</label>

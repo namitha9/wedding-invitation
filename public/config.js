@@ -32,6 +32,22 @@ window.WEDDING = {
   /* Events / venues */
   events: [
     {
+      label: "The Engagement",
+      venue: "Venue TBD",
+      location: "Kochi, Kerala",
+      date: "Saturday, August 15, 2027",
+      time: "5:00 PM",
+      mapUrl: "https://maps.google.com"
+    },
+    {
+      label: "The Sangeet",
+      venue: "Venue TBD",
+      location: "Kochi, Kerala",
+      date: "Wednesday, August 18, 2027",
+      time: "7:00 PM",
+      mapUrl: "https://maps.google.com"
+    },
+    {
       label: "The Holy Matrimony",
       venue: "St. Mary's Cathedral",
       location: "Kochi, Kerala",
@@ -52,7 +68,23 @@ window.WEDDING = {
   /* Order of the day */
   schedule: [
     {
-      day: "Day One · Saturday · 22nd August, 2027",
+      day: "Saturday · 15th August, 2027",
+      items: [
+        { time: "4:00 PM", title: "Guest Arrival", detail: "Welcome & gathering" },
+        { time: "5:00 PM", title: "Engagement Ceremony", detail: "Venue TBD, Kochi" },
+        { time: "7:30 PM", title: "Dinner & Celebration", detail: "Dinner reception to follow" }
+      ]
+    },
+    {
+      day: "Wednesday · 18th August, 2027",
+      items: [
+        { time: "6:30 PM", title: "Guest Arrival", detail: "Welcome & gathering" },
+        { time: "7:00 PM", title: "Sangeet Night", detail: "Venue TBD, Kochi" },
+        { time: "Late", title: "Music & Dance", detail: "Celebrate the night away" }
+      ]
+    },
+    {
+      day: "Sunday · 22nd August, 2027",
       items: [
         { time: "2:00 PM", title: "Guest Arrival", detail: "Welcome & seating at the church" },
         { time: "3:00 PM", title: "Wedding Ceremony", detail: "St. Peter & Paul Church, Thaikkattukara" },

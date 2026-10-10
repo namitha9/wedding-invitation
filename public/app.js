@@ -13,6 +13,8 @@ function setHtml(id, html) {
 
 /* ── Opening screen ── */
 set("#openingNames", `${w.bride} & ${w.groom}`);
+set("#sealInitials", `${w.bride[0]} & ${w.groom[0]}`);
+set("#sealYear", new Date(w.dateISO).getFullYear());
 set("#openingDate", w.dateText || "");
 
 $("#openButton").addEventListener("click", () => {
@@ -21,6 +23,8 @@ $("#openButton").addEventListener("click", () => {
     $("#opening").classList.add("hidden");
     $("#site").classList.remove("hidden");
     window.scrollTo(0, 0);
+    // Trigger staggered hero entrance
+    requestAnimationFrame(() => $("#hero").classList.add("entering"));
   }, 780);
 });
 
@@ -67,76 +71,17 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 /* ── Venue cards ── */
-function venueMedallionSVG(venue, location) {
-  return `
-    <svg viewBox="0 0 260 310" xmlns="http://www.w3.org/2000/svg" class="venue-frame-svg" aria-hidden="true">
-      <defs>
-        <filter id="mShadow" x="-10%" y="-10%" width="120%" height="120%">
-          <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.07)"/>
-        </filter>
-      </defs>
-      <!-- Badge background -->
-      <path d="M130,14 C162,11 204,26 228,54 C246,74 255,100 254,128 L252,178 C250,216 235,250 210,270 C192,284 162,298 130,304 C98,298 68,284 50,270 C25,250 10,216 8,178 L6,128 C5,100 14,74 32,54 C56,26 98,11 130,14 Z"
-            fill="#f5f0e6" stroke="#ccc5b0" stroke-width="1" filter="url(#mShadow)"/>
-      <!-- Inner border ring -->
-      <path d="M130,26 C160,23 199,37 221,63 C237,81 246,105 245,131 L243,177 C241,212 228,243 205,261 C188,274 161,287 130,292 C99,287 72,274 55,261 C32,243 19,212 17,177 L15,131 C14,105 23,81 39,63 C61,37 100,23 130,26 Z"
-            fill="none" stroke="#ccc5b0" stroke-width="0.6"/>
-      <!-- Top botanical cluster -->
-      <g fill="#c8c0a8">
-        <ellipse cx="130" cy="17" rx="6" ry="3.5" transform="rotate(-90 130 17)"/>
-        <circle cx="120" cy="21" r="3.5"/><circle cx="140" cy="21" r="3.5"/>
-        <circle cx="112" cy="28" r="2.5"/><circle cx="148" cy="28" r="2.5"/>
-        <ellipse cx="107" cy="38" rx="5" ry="2.5" transform="rotate(-40 107 38)"/>
-        <ellipse cx="153" cy="38" rx="5" ry="2.5" transform="rotate(40 153 38)"/>
-      </g>
-      <!-- Left botanical -->
-      <g fill="none" stroke="#ccc5b0" stroke-width="0.7">
-        <path d="M14 120 C6 115 0 108 4 102" stroke-linecap="round"/>
-        <path d="M11 145 C2 142 -2 134 3 129" stroke-linecap="round"/>
-        <ellipse cx="3" cy="104" rx="6" ry="3" fill="#c8c0a8" stroke="none" transform="rotate(-30 3 104)"/>
-        <ellipse cx="1" cy="130" rx="6" ry="3" fill="#c8c0a8" stroke="none" transform="rotate(-20 1 130)"/>
-      </g>
-      <!-- Right botanical (mirror) -->
-      <g fill="none" stroke="#ccc5b0" stroke-width="0.7">
-        <path d="M246 120 C254 115 260 108 256 102" stroke-linecap="round"/>
-        <path d="M249 145 C258 142 262 134 257 129" stroke-linecap="round"/>
-        <ellipse cx="257" cy="104" rx="6" ry="3" fill="#c8c0a8" stroke="none" transform="rotate(30 257 104)"/>
-        <ellipse cx="259" cy="130" rx="6" ry="3" fill="#c8c0a8" stroke="none" transform="rotate(20 259 130)"/>
-      </g>
-      <!-- Bottom botanical -->
-      <g fill="#c8c0a8">
-        <circle cx="130" cy="300" r="3.5"/>
-        <circle cx="118" cy="294" r="2.5"/><circle cx="142" cy="294" r="2.5"/>
-        <ellipse cx="108" cy="284" rx="5" ry="2.5" transform="rotate(40 108 284)"/>
-        <ellipse cx="152" cy="284" rx="5" ry="2.5" transform="rotate(-40 152 284)"/>
-      </g>
-      <!-- Side flowers at waist -->
-      <g fill="#c8c0a8">
-        <circle cx="6" cy="165" r="4"/><circle cx="2" cy="158" r="2.5"/><circle cx="2" cy="172" r="2.5"/>
-        <circle cx="254" cy="165" r="4"/><circle cx="258" cy="158" r="2.5"/><circle cx="258" cy="172" r="2.5"/>
-      </g>
-    </svg>
-    <div class="venue-medallion-text">
-      <p class="venue-name">${venue.toUpperCase()}</p>
-      <p class="venue-loc"><em>${location}</em></p>
-    </div>
-  `;
-}
-
 if (w.events) {
   setHtml("#venueCards", w.events.map((ev) => `
     <div class="venue-card">
-      <div class="venue-arch">
-        <p class="venue-card-label">${ev.label.toUpperCase()}</p>
-        <div class="venue-medallion">
-          ${venueMedallionSVG(ev.venue, ev.location)}
-        </div>
-      </div>
-      <div class="venue-info">
-        <p class="venue-date">${ev.date}</p>
-        <p class="venue-time">${ev.time}</p>
-        <a href="${ev.mapUrl}" target="_blank" rel="noreferrer" class="venue-directions">Get Directions ↗</a>
-      </div>
+      <p class="venue-card-label">${ev.label.toUpperCase()}</p>
+      <div class="venue-card-divider"></div>
+      <p class="venue-card-name">${ev.venue}</p>
+      <p class="venue-card-loc">${ev.location}</p>
+      <div class="venue-card-divider"></div>
+      <p class="venue-card-date">${ev.date}</p>
+      <p class="venue-card-time">${ev.time}</p>
+      <a href="${ev.mapUrl}" target="_blank" rel="noreferrer" class="venue-card-dir">Get Directions ↗</a>
     </div>
   `).join(""));
 }
@@ -237,6 +182,83 @@ $("#rsvpForm")?.addEventListener("submit", async (e) => {
       ? "Sorry, we couldn't send that. Please try again."
       : "Thank you — your RSVP has been noted.";
   }
+});
+
+/* ── Timeline scrolling heart ── */
+const schedContainer = $("#scheduleContainer");
+if (schedContainer) {
+  const heart = document.createElement("span");
+  heart.className = "timeline-heart";
+  heart.textContent = "♥";
+  schedContainer.prepend(heart);
+
+  function updateHeart() {
+    const allItems = [...schedContainer.querySelectorAll(".schedule-item")];
+    if (!allItems.length) return;
+
+    const firstItem = allItems[0];
+    const lastItem = allItems[allItems.length - 1];
+    const containerRect = schedContainer.getBoundingClientRect();
+    const firstItemRect = firstItem.getBoundingClientRect();
+    const lastItemRect = lastItem.getBoundingClientRect();
+
+    // Align heart with the vertical line
+    const firstSI = schedContainer.querySelector(".schedule-items");
+    if (firstSI) {
+      heart.style.left = (firstSI.getBoundingClientRect().left - containerRect.left) + "px";
+    }
+
+    // Don't start moving until first item enters the viewport
+    if (firstItemRect.top >= window.innerHeight) {
+      heart.style.top = (firstItemRect.top - containerRect.top + 14) + "px";
+      return;
+    }
+
+    const scrollY = window.scrollY;
+    const firstDocTop = firstItemRect.top + scrollY;
+    const lastDocTop = lastItemRect.top + scrollY;
+    const containerDocTop = containerRect.top + scrollY;
+
+    // progress: 0 when first item enters viewport, 1 when last item is near center
+    const scrollStart = firstDocTop - window.innerHeight;
+    const scrollEnd = lastDocTop - window.innerHeight * 0.4;
+    const progress = Math.max(0, Math.min(1, (scrollY - scrollStart) / (scrollEnd - scrollStart)));
+
+    const heartDocTop = firstDocTop + progress * (lastDocTop - firstDocTop);
+    heart.style.top = (heartDocTop - containerDocTop + 14) + "px";
+  }
+
+  window.addEventListener("scroll", updateHeart, { passive: true });
+  updateHeart();
+}
+
+/* ── Scroll reveal ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+[
+  ".story-poem", ".story-invite", ".story-names",
+  ".countdown-heading", ".countdown",
+  ".venues .eyebrow", ".venues-heading",
+  ".venue-card",
+  ".timeline-section .eyebrow", ".timeline-section .section-heading", ".schedule-day",
+  ".dresscode-section .eyebrow", ".dresscode-section .section-heading", ".dresscode-card",
+  ".letter",
+  ".quote-dove", ".quote-text", ".quote-ref",
+  ".rsvp-section .eyebrow", ".rsvp-heading", ".rsvp-deadline", ".rsvp-form",
+].forEach(sel => {
+  document.querySelectorAll(sel).forEach((el, i) => {
+    el.classList.add("reveal");
+    if (i === 1) el.classList.add("delay-1");
+    if (i === 2) el.classList.add("delay-2");
+    revealObserver.observe(el);
+  });
 });
 
 /* ── Footer ── */

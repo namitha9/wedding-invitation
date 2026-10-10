@@ -163,6 +163,49 @@ body {
 ════════════════════════════════ */
 .site { background: var(--cream); }
 
+/* ── Hero entrance animation ── */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroArchGrow {
+  from { opacity: 0; transform: translate(-50%, -52%) scale(0.82); }
+  to   { opacity: 1; transform: translate(-50%, -52%) scale(1); }
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero.entering .hero-arch    { animation: heroArchGrow  1.1s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
+.hero.entering .hero-eyebrow { animation: heroFadeUp    0.7s ease 0.55s both; }
+.hero.entering .hero-names   { animation: heroFadeUp    0.9s ease 0.72s both; }
+.hero.entering .hero-date    { animation: heroFadeUp    0.7s ease 0.92s both; }
+.hero.entering .hero-cta     { animation: heroCtaFadeUp 0.6s ease 1.15s both; }
+.hero.entering .hero-scroll  { animation: heroFadeIn    0.6s ease 1.4s  both; }
+
+/* CTA needs its own keyframe to preserve translateX(-50%) */
+@keyframes heroCtaFadeUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.visible.delay-1 { transition-delay: 0.1s; }
+.reveal.visible.delay-2 { transition-delay: 0.2s; }
+.reveal.visible.delay-3 { transition-delay: 0.3s; }
+
 .eyebrow {
   font: 500 10px / 1 "Montserrat", sans-serif;
   letter-spacing: 0.28em;
@@ -200,16 +243,61 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(170deg, #1e2b1c 0%, #2c3d28 40%, #1a2718 70%, #0f180f 100%);
-  background-size: cover;
-  background-position: center;
+  background: #111c10;
   color: #fff;
   text-align: center;
 }
 
+.hero-bg {
+  position: absolute;
+  inset: -25%;          /* oversized so translation stays in-frame */
+  background:
+    radial-gradient(ellipse 55% 50% at 30% 35%, #2e4d2a 0%, transparent 100%),
+    radial-gradient(ellipse 50% 55% at 70% 65%, #1e3a1c 0%, transparent 100%),
+    radial-gradient(ellipse 40% 40% at 55% 10%, #324e2e 0%, transparent 100%),
+    linear-gradient(170deg, #1a2b18 0%, #111c10 100%);
+  animation: hero-bg 14s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes hero-bg {
+  0%   { transform: translate(0%,   0%);   }
+  33%  { transform: translate(-7%,  5%);   }
+  66%  { transform: translate(6%,  -6%);   }
+  100% { transform: translate(-4%,  8%);   }
+}
+
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-p {
+  position: absolute;
+  left: var(--x);
+  top:  var(--y);
+  width:  var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(197,163,90,var(--op)), transparent 65%);
+  filter: blur(28px);
+  /* timing-function must come before delay in the shorthand */
+  animation: hero-float var(--dur) ease-in-out var(--del) infinite alternate;
+}
+
+@keyframes hero-float {
+  0%   { transform: translate(0px,   0px)  scale(1);    }
+  25%  { transform: translate(30px, -50px) scale(1.15); }
+  50%  { transform: translate(-20px, 35px) scale(0.88); }
+  75%  { transform: translate(40px,  20px) scale(1.08); }
+  100% { transform: translate(-30px,-40px) scale(1.12); }
+}
+
 .hero-arch {
   position: absolute;
+  z-index: 2;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -52%);
@@ -218,6 +306,14 @@ body {
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 200px 200px 0 0;
   pointer-events: none;
+}
+
+.hero-arch::after {
+  content: "";
+  position: absolute;
+  inset: 14px 14px 0;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 200px 200px 0 0;
 }
 
 .hero-content {
@@ -235,7 +331,7 @@ body {
 }
 
 .hero-names {
-  font: 300 clamp(56px, 15vw, 110px) / 0.88 "Cormorant Garamond", serif;
+  font: 300 clamp(36px, 7vw, 68px) / 0.92 "Cormorant Garamond", serif;
   color: #fff;
   margin-bottom: 22px;
 }
@@ -311,7 +407,8 @@ body {
 .story-invite {
   font: italic 400 clamp(14px, 3vw, 18px) / 1 "Cormorant Garamond", serif;
   color: var(--muted);
-  margin-bottom: 56px;
+  margin-bottom: 30px;
+  margin-top: 60px;
 }
 
 .story-names {
@@ -329,8 +426,8 @@ body {
 }
 
 .story-person p {
-  font: 300 13px / 1.4 "Cormorant Garamond", serif;
-  color: var(--muted);
+  font: 300 18px / 1.4 "Cormorant Garamond", serif;
+  color: var(--ink);
   font-style: italic;
   margin-top: 4px;
 }
@@ -344,39 +441,80 @@ body {
 /* ════════════════════════════════
    COUNTDOWN
 ════════════════════════════════ */
+/* ════════════════════════════════
+   QUOTE
+════════════════════════════════ */
+.quote-section {
+  background: var(--green);
+  padding: 80px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+}
+
+.quote-dove {
+  width: 56px;
+  height: auto;
+}
+
+.quote-text {
+  font: italic 300 clamp(22px, 4vw, 34px) / 1.5 "Cormorant Garamond", serif;
+  color: #f0ebe0;
+  max-width: 560px;
+  margin: 0;
+}
+
+.quote-ref {
+  font: 400 10px / 1 "Montserrat", sans-serif;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+}
+
 .countdown-section {
-  background: var(--cream-dark);
-  padding: 70px 24px;
+  background: var(--cream);
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.countdown-heading {
+  font: 300 clamp(36px, 7vw, 62px) / 1.05 "Cormorant Garamond", serif;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
 }
 
 .countdown {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
 }
 
 .countdown-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 80px;
-  padding: 20px 16px 16px;
-  background: var(--card);
-  border: 1px solid var(--line);
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.countdown-unit + .countdown-unit {
+  border-left: 1px solid var(--line);
 }
 
 .countdown-num {
-  font: 400 clamp(34px, 7vw, 48px) / 1 "Cormorant Garamond", serif;
+  font: 300 clamp(42px, 8vw, 72px) / 1 "Cormorant Garamond", serif;
   color: var(--ink);
 }
 
 .countdown-lbl {
-  margin-top: 6px;
+  margin-top: 10px;
   font: 500 9px / 1 "Montserrat", sans-serif;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--muted);
 }
 
 /* ════════════════════════════════
@@ -385,7 +523,7 @@ body {
 .venues {
   padding: 100px 0 80px;
   text-align: center;
-  background: var(--cream);
+  background: #faf8f2;
 }
 
 .venues-heading {
@@ -397,90 +535,73 @@ body {
 
 .venue-cards {
   display: flex;
-  flex-direction: column;
-  gap: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  padding: 0 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .venue-card {
-  text-align: center;
-}
-
-/* Full-width arch — like the inspo (arch fills the screen width) */
-.venue-arch {
-  width: 100%;
-  min-height: 70svh;
-  border: 1px solid #d5d0c4;
-  border-radius: 50vw 50vw 0 0;
+  flex: 1 1 240px;
+  max-width: 320px;
   background: #f5f1ea;
+  border: 1px solid #d5d0c4;
+  border-radius: 220px 220px 0 0;
+  padding: 60px 44px 48px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 52px 24px 48px;
-  gap: 0;
-  margin-bottom: 32px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.venue-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
 }
 
 .venue-card-label {
-  font: 500 11px / 1 "Montserrat", sans-serif;
-  letter-spacing: 0.24em;
+  font: 500 10px / 1 "Montserrat", sans-serif;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--green-mid);
-  margin-bottom: 36px;
+  color: var(--gold);
+  margin-bottom: 20px;
 }
 
-/* Ornate badge/medallion container */
-.venue-medallion {
-  position: relative;
-  width: min(260px, 72%);
-  margin: auto;
+.venue-card-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--line);
+  margin: 16px auto;
 }
 
-.venue-frame-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.venue-medallion-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 65%;
-  text-align: center;
-}
-
-.venue-name {
-  font: 600 clamp(12px, 3vw, 14px) / 1.4 "Montserrat", sans-serif;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.venue-card-name {
+  font: 300 clamp(24px, 3vw, 34px) / 1.2 "Cormorant Garamond", serif;
   color: var(--ink);
-  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
 }
 
-.venue-loc {
-  font: italic 400 clamp(14px, 3.5vw, 17px) / 1.4 "Cormorant Garamond", serif;
+.venue-card-loc {
+  font: italic 400 15px / 1 "Cormorant Garamond", serif;
   color: var(--muted);
 }
 
-.venue-info {
-  padding: 0 24px 80px;
-}
-
-.venue-date {
-  font: 400 clamp(14px, 3.5vw, 16px) / 1.4 "Cormorant Garamond", serif;
+.venue-card-date {
+  font: 300 13px / 1 "Montserrat", sans-serif;
   color: var(--muted);
-  font-style: italic;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-.venue-time {
-  font: 400 clamp(28px, 6vw, 38px) / 1 "Cormorant Garamond", serif;
+.venue-card-time {
+  font: 300 clamp(28px, 4vw, 38px) / 1 "Cormorant Garamond", serif;
   color: var(--ink);
   margin-bottom: 24px;
 }
 
-.venue-directions {
+.venue-card-dir {
   font: 500 10px / 1 "Montserrat", sans-serif;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -488,10 +609,11 @@ body {
   text-decoration: none;
   border-bottom: 1px solid var(--gold);
   padding-bottom: 3px;
-  transition: color 0.2s, border-color 0.2s;
+  margin-top: auto;
+  transition: color 0.2s;
 }
 
-.venue-directions:hover { color: var(--gold); }
+.venue-card-dir:hover { color: var(--gold); }
 
 /* ════════════════════════════════
    TIMELINE
@@ -507,6 +629,7 @@ body {
   max-width: 540px;
   margin: auto;
   text-align: left;
+  position: relative;
 }
 
 .schedule-day-label {
@@ -539,9 +662,8 @@ body {
   background: var(--line);
 }
 
-/* Gold heart at top of timeline */
-.schedule-items::after {
-  content: "♥";
+/* Gold heart — real element, moved by JS on scroll */
+.timeline-heart {
   position: absolute;
   left: 0px;
   top: 18px;
@@ -550,6 +672,8 @@ body {
   color: var(--gold);
   font-size: 16px;
   line-height: 1;
+  pointer-events: none;
+  will-change: top;
 }
 
 .schedule-item {
@@ -628,37 +752,101 @@ body {
 ════════════════════════════════ */
 .letter-section {
   padding: 100px 24px;
-  background: var(--cream-dark);
+  background: var(--cream);
+}
+
+/* ── Mobile: card layout with medallion ── */
+.letter-wrap {
+  position: relative;
+  max-width: 360px;
+  margin: auto;
+  padding-top: 28px;
+}
+
+.letter-medallion {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+
+.letter-medallion svg {
+  width: 24px;
+  height: 24px;
 }
 
 .letter {
-  max-width: 600px;
-  margin: auto;
+  background: #fdfaf5;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 52px 28px 36px;
 }
 
 .letter-salutation {
-  font: 400 clamp(18px, 4.5vw, 24px) / 1.4 "Cormorant Garamond", serif;
+  font: 400 clamp(18px, 4.5vw, 22px) / 1.4 "Cormorant Garamond", serif;
   color: var(--ink);
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .letter-body {
-  font: 300 clamp(15px, 3.5vw, 18px) / 1.8 "Cormorant Garamond", serif;
+  font: 300 clamp(15px, 3.5vw, 17px) / 1.85 "Cormorant Garamond", serif;
   color: var(--ink);
   margin-bottom: 36px;
 }
 
 .letter-sign {
-  font: italic 400 clamp(15px, 3.5vw, 18px) / 1.4 "Cormorant Garamond", serif;
+  font: italic 400 clamp(14px, 3vw, 16px) / 1.5 "Cormorant Garamond", serif;
   color: var(--muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .letter-names {
-  font: 500 clamp(15px, 3.5vw, 19px) / 1 "Montserrat", sans-serif;
-  letter-spacing: 0.12em;
+  font: 500 clamp(13px, 3vw, 16px) / 1 "Montserrat", sans-serif;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink);
+}
+
+/* ── Desktop: open layout, no card ── */
+@media (min-width: 768px) {
+  .letter-wrap {
+    max-width: 700px;
+    padding-top: 0;
+  }
+  .letter-medallion {
+    display: none;
+  }
+  .letter {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+  }
+  .letter-salutation {
+    font: 400 clamp(20px, 3vw, 28px) / 1.4 "Cormorant Garamond", serif;
+    margin-bottom: 32px;
+  }
+  .letter-body {
+    font: 300 clamp(16px, 2vw, 20px) / 1.9 "Cormorant Garamond", serif;
+    margin-bottom: 48px;
+  }
+  .letter-sign {
+    font: italic 400 clamp(15px, 1.8vw, 18px) / 1.5 "Cormorant Garamond", serif;
+    margin-bottom: 8px;
+  }
+  .letter-names {
+    font: 600 clamp(14px, 1.6vw, 18px) / 1 "Montserrat", sans-serif;
+    letter-spacing: 0.18em;
+  }
 }
 
 /* ════════════════════════════════
@@ -667,7 +855,7 @@ body {
 .rsvp-section {
   padding: 100px 24px;
   text-align: center;
-  background: var(--cream);
+  background: var(--cream-dark);
 }
 
 .rsvp-heading {
